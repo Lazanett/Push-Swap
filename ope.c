@@ -3,24 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ope.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 09:43:39 by lazanett          #+#    #+#             */
-/*   Updated: 2023/04/11 14:26:25 by lazanett         ###   ########.fr       */
+/*   Updated: 2023/04/30 12:27:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void ft_swap(t_liste *liste)
+void ft_swap(t_liste *lst)
 {
     int temp;
-    //ft_printf("%i\n", liste->content);
-    if ((!liste->content) || (!liste->next->content))
+    //ft_printf("%i\n", lst->content);
+    if ((!lst->content) || (!lst->next->content))
         return ;
-    temp = liste->content;
-    liste->content = liste->next->content;
-    liste->next->content = temp;
+    temp = lst->content;
+    lst->content = lst->next->content;
+    lst->next->content = temp;
+    temp = lst->index;
+    lst->index = lst->next->index;
+    lst->next->index = temp;
 }
 
 void ft_sa(t_liste *liste_a)//interverti 1er et 2eme de a

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:42:01 by lazanett          #+#    #+#             */
-/*   Updated: 2023/04/28 21:48:07 by marvin           ###   ########.fr       */
+/*   Updated: 2023/04/30 12:22:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_move(t_liste **a, t_liste **b, int cost_a, int cost_b);
 //--------------------------------------------------------------------------//
 
 //---------------------------------OPE.C------------------------------------//
-void ft_swap(t_liste *liste);
+void ft_swap(t_liste *lst);
 void ft_sa(t_liste *liste_a);
 void ft_sb(t_liste *liste_b);
 void	ft_ss(t_liste *liste_a, t_liste *liste_b);
