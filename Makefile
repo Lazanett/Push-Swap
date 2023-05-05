@@ -6,62 +6,89 @@
 #    By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 10:45:17 by lazanett          #+#    #+#              #
-#    Updated: 2023/04/21 10:17:45 by lazanett         ###   ########.fr        #
+#    Updated: 2023/05/05 13:36:34 by lazanett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-
 NAME = push_swap
 
-CC = cc
+NAME_BONUS = checker
 
-RM = bin/rm -f
+cc = cc
 
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Werror -Wextra -g3
 
 PATH_LIB = libft
 
-SRCS =  parsing.c \
-		main.c \
-		ope.c \
-		ope2.c \
-		ope3.c \
-		ope4.c \
-		utils.c \
-		small_sort.c \
-		index.c \
-		utils_list.c \
-		algo.c \
-		pos.c \
-		cost.c \
-		move.c \
-		
-		
-OBJS	= ${SRCS:.c=.o}
+SRC = src/parsing.c \
+		src/main.c \
+		src/ope.c \
+		src/ope2.c \
+		src/ope3.c \
+		src/ope4.c \
+		src/utils.c \
+		src/small_sort.c \
+		src/index.c \
+		src/utils_list.c \
+		src/utils_struc.c \
+		src/algo.c \
+		src/pos.c \
+		src/cost.c \
+		src/move.c \
+		src/free.c \
 
-LIBFT = $(PATH_LIB)/libft.a
+SRC_BONUS = bonus/do_ope_bonus.c \
+			bonus/main_bonus.c \
+			src/ope.c \
+			src/ope2.c \
+			src/ope3.c \
+			src/ope4.c \
+			src/utils.c \
+			src/small_sort.c \
+			src/index.c \
+			src/utils_list.c \
+			src/utils_struc.c \
+			src/algo.c \
+			src/pos.c \
+			src/cost.c \
+			src/move.c \
+			src/free.c \
+			src/parsing.c \
 
-$(LIBFT) :
+LIB = $(PATH_LIB)/libft.a
+
+OBJ = $(SRC:.c=.o)
+
+OBJ_BONUS = $(SRC_BONUS:.c=.o)
+
+all : $(LIB) $(NAME)
+
+bonus: $(LIB) $(NAME_BONUS)
+
+$(NAME) : $(OBJ) 
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
+	@echo "\n Compilation OK\n"
+
+$(NAME_BONUS) : $(OBJ_BONUS) 
+	@$(CC) $(CFLAGS) -o $(NAME_BONUS) $(OBJ_BONUS) $(LIB)
+	@echo "\n Compilation Bonus OK\n"
+
+.c.o :
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(LIB) :
 	@make -s -C $(PATH_LIB)
 
-$(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
-	
-	
-all : ${LIBFT} ${NAME}
-
 clean :
-	make -C $(PATH_LIB) clean
-	/bin/rm -f ${OBJS}
+	@make -s -C $(PATH_LIB) clean
+	@ rm -f $(OBJ) 
+	@ rm -f $(OBJ_BONUS)
 
 fclean : clean
-	make -C $(PATH_LIB) fclean
-	/bin/rm -f ${NAME}
+	@make -s -C $(PATH_LIB) fclean
+	@rm -f $(NAME)
+	@rm -f $(NAME_BONUS)
 
 re : fclean all
-
-.o .c :
-	$(CC) $(CFLAGS) -c $< -o ${<:.c = .o}
-
-.PHONY :
-	all re clean fclean 
+	
+.PHONY : all clean fclean re
