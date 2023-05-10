@@ -6,7 +6,7 @@
 #    By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 10:45:17 by lazanett          #+#    #+#              #
-#    Updated: 2023/05/05 13:36:34 by lazanett         ###   ########.fr        #
+#    Updated: 2023/05/09 15:29:13 by lazanett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,9 @@ SRC_BONUS = bonus/do_ope_bonus.c \
 			src/move.c \
 			src/free.c \
 			src/parsing.c \
+			bonus/operation1.c \
+			bonus/operation2.c \
+
 
 LIB = $(PATH_LIB)/libft.a
 

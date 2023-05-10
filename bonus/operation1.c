@@ -1,39 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ope2.c                                             :+:      :+:    :+:   */
+/*   operation1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/04 11:06:15 by lazanett          #+#    #+#             */
-/*   Updated: 2023/05/10 13:45:50 by lazanett         ###   ########.fr       */
+/*   Created: 2023/05/09 14:29:22 by lazanett          #+#    #+#             */
+/*   Updated: 2023/05/10 13:52:32 by lazanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	push(t_liste **src, t_liste **dest)
+void	sa(t_liste *liste_a)
 {
-	t_liste	*push_b;
-
-	if (src == NULL)
+	if (!liste_a)
 		return ;
-	push_b = ft_lstnew_p((*src)->content);
-	push_b->index = (*src)->index;
-	ft_lstadd_front_p(dest, push_b);
-	push_b = (*src)->next;
-	ft_lstdelone_p(*src);
-	*src = push_b;
+	ft_swap(liste_a);
 }
 
-void	ft_pa(t_liste **liste_a, t_liste **liste_b)
+void	sb(t_liste *liste_b)
+{
+	if (!liste_b)
+		return ;
+	ft_swap(liste_b);
+}
+
+void	ss(t_liste *liste_a, t_liste *liste_b)
+{
+	ft_swap(liste_a);
+	ft_swap(liste_b);
+}
+
+void	pa(t_liste **liste_a, t_liste **liste_b)
 {
 	push(liste_b, liste_a);
-	ft_putstr("pa\n");
 }
 
-void	ft_pb(t_liste **liste_a, t_liste **liste_b)
+void	pb(t_liste **liste_a, t_liste **liste_b)
 {
 	push(liste_a, liste_b);
-	ft_putstr("pb\n");
 }

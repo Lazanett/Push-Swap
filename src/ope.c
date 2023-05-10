@@ -6,7 +6,7 @@
 /*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 09:43:39 by lazanett          #+#    #+#             */
-/*   Updated: 2023/05/03 15:53:42 by lazanett         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:56:50 by lazanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_swap(t_liste *lst)
 {
 	int	temp;
 
-	if ((!lst->content) || (!lst->next->content))
+	if ((!lst) || (!lst->next))
 		return ;
 	temp = lst->content;
 	lst->content = lst->next->content;

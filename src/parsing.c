@@ -6,7 +6,7 @@
 /*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:42:35 by lazanett          #+#    #+#             */
-/*   Updated: 2023/05/03 16:49:16 by lazanett         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:05:26 by lazanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,6 @@ void	ft_args_valid(int argc, char **argv, t_list_param *argument, int i)
 	{
 		argument->tab = ft_split(argv[1], ' ');
 		argument->split = 1;
-		if (ft_len(argument->tab) <= 1)
-		{
-			ft_free(argument->tab);
-			exit(0);
-		}	
 	}
 	else
 	{
@@ -94,8 +89,8 @@ void	ft_check_list(t_list_param *argument, int i)
 	i = 0;
 	while (argument->tab[i])
 	{
-		ft_strlen(argument->tab[i]);
-		if (ft_strlen(argument->tab[i]) > 11)
+		if (ft_strlen(argument->tab[i]) > 11
+			|| ft_strlen(argument->tab[i]) == 0)
 			ft_error("Error", argument);
 		tmp = ft_atoi(argument->tab[i]);
 		if (!ft_isnum(argument->tab[i]))

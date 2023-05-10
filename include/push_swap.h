@@ -6,7 +6,7 @@
 /*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:42:01 by lazanett          #+#    #+#             */
-/*   Updated: 2023/05/05 13:10:04 by lazanett         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:04:23 by lazanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,16 +150,32 @@ void	ft_error(char *msg, t_list_param *argument);
 
 //-------------------------------MAIN_BOMUS.C-----------------------------//
 void	ft_is_ok(t_liste *lst1, t_liste *lst2);
-void	ft_reader(t_liste *lst1, t_liste *lst2);
-void	do_ope(t_liste *lst1, t_liste *lst2, char **tab_ope);
+void	ft_reader(t_liste **lst1, t_liste **lst2);
+int		do_ope(t_liste **lst1, t_liste **lst2, char *ope);
+void	rrr(t_liste **liste_a, t_liste **liste_b);
 //-------------------------------------------------------------------------//
 
 //-----------------------------DO_OPE_BONUS---------------------------------//
-int		is_swap(t_liste *lst1, t_liste *lst2, char **tab_ope, int i);
-int		is_push(t_liste *lst1, t_liste *lst2, char **tab_ope, int i);
-int		is_rotate(t_liste *lst1, t_liste *lst2, char **tab_ope, int i);
-int		is_reverse_rotate(t_liste *lst1, t_liste *lst2, char **tab_ope, int i);
+int		is_swap(t_liste **lst1, t_liste **lst2, char *ope);
+int		is_push(t_liste **lst1, t_liste **lst2, char *ope);
+int		is_rotate(t_liste **lst1, t_liste **lst2, char *ope);
+int		is_reverse_rotate(t_liste **lst1, t_liste **lst2, char *ope);
 int		ft_strcmp(char *s1, char *s2);
 //---------------------------------------------------------------------------//
 
+//-------------------------------OPERATION1.C---------------------------------//
+void	sa(t_liste *liste_a);
+void	sb(t_liste *liste_b);
+void	ss(t_liste *liste_a, t_liste *liste_b);
+void	pa(t_liste **liste_a, t_liste **liste_b);
+void	pb(t_liste **liste_a, t_liste **liste_b);
+//----------------------------------------------------------------------------//
+
+//-----------------------------------OPERATION2.C----------------------------//
+void	ra(t_liste *liste_a);
+void	rb(t_liste *liste_b);
+void	rr(t_liste *liste_a, t_liste *liste_b);
+void	rra(t_liste **liste_a);
+void	rrb(t_liste **liste_b);
+//----------------------------------------------------------------------------//
 #endif

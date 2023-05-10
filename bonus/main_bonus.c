@@ -6,7 +6,7 @@
 /*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:14:33 by lazanett          #+#    #+#             */
-/*   Updated: 2023/05/05 13:20:43 by lazanett         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:02:08 by lazanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 		ft_free(argument.tab);
 	else
 		free(argument.tab);
-	ft_reader(a, b);
+	ft_reader(&a, &b);
 	ft_is_ok(a, b);
 	free_lst(&a);
 	free_lst(&b);
@@ -40,48 +40,44 @@ int	main(int argc, char **argv)
 
 void	ft_is_ok(t_liste *lst1, t_liste *lst2)
 {
-	if (ft_already_class(lst1) == 1 || lst2 != NULL)
-		ft_putstr("KO\n");
-	else
+	if (ft_already_class(lst1) == 1 && lst2 == NULL)
 		ft_putstr("OK\n");
+	else
+		ft_putstr("KO\n");
 }
 
-void	ft_reader(t_liste *lst1, t_liste *lst2)
+void	ft_reader(t_liste **lst1, t_liste **lst2)
 {
 	char	*line;
-	char	**tab_ope;
-	int		i;
+	char	*ope;
 
-	i = 0;
-	tab_ope = NULL;
-	while (get_next_line(1))
+	ope = NULL;
+	line = get_next_line(0);
+	while (line)
 	{
-		if (&get_next_line == NULL)
-			free(tab_ope);
-		line = get_next_line(1);
-		tab_ope[i] = strdup(line);
-		i++;
+		do_ope(lst1, lst2, line);
+		free(line);
+		line = get_next_line(0);
 	}
-	tab_ope[i] = "\0";
-	do_ope(lst1, lst2, tab_ope);
-	ft_free(tab_ope);
+	if (&get_next_line == NULL)
+		free(line);
 }
 
-void	do_ope(t_liste *lst1, t_liste *lst2, char **tab_ope)
+int	do_ope(t_liste **lst1, t_liste **lst2, char *ope)
 {
-	int	i;
+	if (is_swap(lst1, lst2, ope) == 0)
+		return (0);
+	else if (is_push(lst1, lst2, ope) == 0)
+		return (0);
+	else if (is_rotate(lst1, lst2, ope) == 0)
+		return (0);
+	else if (is_reverse_rotate(lst1, lst2, ope) == 0)
+		return (0);
+	return (1);
+}
 
-	i = 0;
-	while (tab_ope[i])
-	{
-		if (is_swap(lst1, lst2, tab_ope, i) == 0)
-		{
-			if (is_push(lst1, lst2, tab_ope, i) == 0)
-			{
-				if (is_rotate(lst1, lst2, tab_ope, i) == 0)
-					is_reverse_rotate(lst1, lst2, tab_ope, i);
-			}
-		}
-		i++;
-	}
+void	rrr(t_liste **liste_a, t_liste **liste_b)
+{
+	ft_reverse_rotate(liste_a);
+	ft_reverse_rotate(liste_b);
 }

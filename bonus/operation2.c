@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   operation2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 11:07:02 by lazanett          #+#    #+#             */
-/*   Updated: 2023/05/09 11:03:28 by lazanett         ###   ########.fr       */
+/*   Created: 2023/05/09 14:37:07 by lazanett          #+#    #+#             */
+/*   Updated: 2023/05/10 13:55:22 by lazanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/push_swap.h"
 
-char	*ft_strchr(char *s, int c)
+void	ra(t_liste *liste_a)
 {
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[i] != '\0' && s[i] != (char)c)
-		i++;
-	if (s[i] == (char)c)
-		return ((char *)(s + i));
-	return (NULL);
+	ft_rotate(liste_a);
 }
 
-/*int	main(void)
+void	rb(t_liste *liste_b)
 {
-	const char s[] = "Salutation";
-	int	c = 'a';
-	printf("%s\n",ft_strchr(s, c));
-	if(strchr(s, c)  == ft_strchr(s, c))
-		printf("%s\n","OK");
-        return (0);
-}*/
+	ft_rotate(liste_b);
+}
+
+void	rr(t_liste *liste_a, t_liste *liste_b)
+{
+	ft_rotate(liste_a);
+	ft_rotate(liste_b);
+}
+
+void	rra(t_liste **liste_a)
+{
+	ft_reverse_rotate(liste_a);
+}
+
+void	rrb(t_liste **liste_b)
+{
+	ft_reverse_rotate(liste_b);
+}
