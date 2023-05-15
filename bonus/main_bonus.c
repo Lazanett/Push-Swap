@@ -6,7 +6,7 @@
 /*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:14:33 by lazanett          #+#    #+#             */
-/*   Updated: 2023/05/10 15:02:08 by lazanett         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:33:24 by lazanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,20 @@ void	ft_is_ok(t_liste *lst1, t_liste *lst2)
 void	ft_reader(t_liste **lst1, t_liste **lst2)
 {
 	char	*line;
-	char	*ope;
+	int		i;
 
-	ope = NULL;
 	line = get_next_line(0);
 	while (line)
 	{
-		do_ope(lst1, lst2, line);
+		i = ft_strlen(line);
+		if (do_ope(lst1, lst2, line, i) == 1)
+		{
+			free(line);
+			ft_putendl_fd("Error", 2);
+			free_lst(lst1);
+			free_lst(lst2);
+			exit(0);
+		}	
 		free(line);
 		line = get_next_line(0);
 	}
@@ -63,17 +70,33 @@ void	ft_reader(t_liste **lst1, t_liste **lst2)
 		free(line);
 }
 
-int	do_ope(t_liste **lst1, t_liste **lst2, char *ope)
+int	do_ope(t_liste **lst1, t_liste **lst2, char *line, int i)
 {
-	if (is_swap(lst1, lst2, ope) == 0)
-		return (0);
-	else if (is_push(lst1, lst2, ope) == 0)
-		return (0);
-	else if (is_rotate(lst1, lst2, ope) == 0)
-		return (0);
-	else if (is_reverse_rotate(lst1, lst2, ope) == 0)
-		return (0);
-	return (1);
+	if (ft_strncmp(line, "sa\n", i) == 0)
+		sa(*lst1);
+	else if (ft_strncmp(line, "sb\n", i) == 0)
+		sb(*lst2);
+	else if (ft_strncmp(line, "ss\n", i) == 0)
+		ss(*lst1, *lst2);
+	else if (ft_strncmp(line, "pa\n", i) == 0)
+		pa(lst1, lst2);
+	else if (ft_strncmp(line, "pb\n", i) == 0)
+		pb(lst1, lst2);
+	else if (ft_strncmp(line, "ra\n", i) == 0)
+		ra(*lst1);
+	else if (ft_strncmp(line, "rb\n", i) == 0)
+		rb(*lst2);
+	else if (ft_strncmp(line, "rr\n", i) == 0)
+		rr(*lst1, *lst2);
+	else if (ft_strncmp(line, "rra\n", i) == 0)
+		rra(lst1);
+	else if (ft_strncmp(line, "rrb\n", i) == 0)
+		rrb(lst2);
+	else if (ft_strncmp(line, "rrr\n", i) == 0)
+		rrr(lst1, lst2);
+	else
+		return (1);
+	return (0);
 }
 
 void	rrr(t_liste **liste_a, t_liste **liste_b)

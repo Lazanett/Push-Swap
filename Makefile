@@ -6,7 +6,7 @@
 #    By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 10:45:17 by lazanett          #+#    #+#              #
-#    Updated: 2023/05/09 15:29:13 by lazanett         ###   ########.fr        #
+#    Updated: 2023/05/15 13:16:45 by lazanett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,7 @@ SRC = src/parsing.c \
 		src/move.c \
 		src/free.c \
 
-SRC_BONUS = bonus/do_ope_bonus.c \
-			bonus/main_bonus.c \
-			src/ope.c \
+SRC_BONUS = src/ope.c \
 			src/ope2.c \
 			src/ope3.c \
 			src/ope4.c \
@@ -54,6 +52,7 @@ SRC_BONUS = bonus/do_ope_bonus.c \
 			src/move.c \
 			src/free.c \
 			src/parsing.c \
+			bonus/main_bonus.c \
 			bonus/operation1.c \
 			bonus/operation2.c \
 
