@@ -3,100 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atardif <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:13:23 by atardif           #+#    #+#             */
-/*   Updated: 2022/12/04 10:58:51 by atardif          ###   ########.fr       */
+/*   Updated: 2023/05/17 11:57:27 by lazanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-char	*ft_fillres(char *res, char *buffer)
+char	*ft_add_gnl(char *dest, char *src, ssize_t n)
 {
-	char	*temp;
+	char	*new;
 
-	if (!res && buffer[0] != 0)
+	new = NULL;
+	if (n != -1)
 	{
-		res = malloc(sizeof(char));
-		res[0] = 0;
+		new = ft_strnjoin_gnl(dest, src, n);
+		free(dest);
 	}
-	temp = ft_strjoinmod(res, buffer);
-	free(res);
-	return (temp);
+	return (new);
 }
 
-char	*ft_filline(char *res)
+void	ft_cut_gnl(char *buffer, char *rest)
 {
-	int		set;
-	char	*line;
+	ssize_t	len;
 
-	set = ft_reschr(res);
-	if (set == -1)
-		set = ft_strlen(res) - 1;
-	line = malloc(sizeof(char) * (set + 2));
-	if (!line)
+	len = ft_get_index_gnl(buffer, '\n');
+	if (len >= 0)
+		ft_strlcpy_gnl(rest, buffer + len + 1, BUFFER_SIZE);
+}
+
+ssize_t	ft_get_index_gnl(char *str, char searched_char)
+{
+	ssize_t	i;
+
+	i = 0;
+	while (str[i] != searched_char && str[i] != '\0')
+		i++;
+	if (str[i] != searched_char)
+		return (-1);
+	return (i);
+}
+
+char	*readfile_gnl(int fd, char *line, char *rest)
+{
+	char		buffer[BUFFER_SIZE + 1];
+	ssize_t		bytes;
+
+	ft_bzero_gnl(buffer, BUFFER_SIZE + 1);
+	bytes = read(fd, buffer, BUFFER_SIZE);
+	while (bytes > 0 && ft_strchr_gnl(buffer, '\n') == NULL)
+	{
+		line = ft_add_gnl(line, buffer, BUFFER_SIZE);
+		ft_bzero_gnl(buffer, BUFFER_SIZE + 1);
+		bytes = read(fd, buffer, BUFFER_SIZE);
+	}
+	if (ft_strchr_gnl(buffer, '\n') != NULL)
+	{
+		line = ft_add_gnl(line, buffer, ft_get_index_gnl(buffer, '\n') + 1);
+		ft_cut_gnl(buffer, rest);
+	}
+	if (bytes == 0 && line == NULL)
 		return (NULL);
-	ft_strlcpymod(line, res, (set + 2));
+	if (bytes == 0 && line[0] != '\0')
+	{
+		ft_bzero_gnl(rest, BUFFER_SIZE);
+		return (line);
+	}
 	return (line);
-}
-
-char	*ft_resetres(char *res)
-{
-	char	*temp;
-	int		set;
-
-	set = ft_reschr(res);
-	if (set == -1)
-	{
-		free(res);
-		return (NULL);
-	}	
-	temp = ft_substrmod(res, (set + 1), (ft_strlen(res) - set - 1));
-	free(res);
-	return (temp);
-}
-
-char	*ft_read(int fd, char *res)
-{
-	char	*buffer;
-	int		size;
-
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	size = 1;
-	while (size > 0)
-	{
-		size = read(fd, buffer, BUFFER_SIZE);
-		if (size == -1)
-		{
-			free(res);
-			res = NULL;
-			break ;
-		}
-		buffer[size] = 0;
-		res = ft_fillres(res, buffer);
-		if (ft_reschr(res) >= 0)
-			break ;
-	}
-	free(buffer);
-	return (res);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*res;
-	char		*line;
+	static char		rest[FOPEN_MAX][BUFFER_SIZE + 1] = {0};
+	char			*line;
 
+	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	res = ft_read(fd, res);
-	if (!res)
+	if (fd > FOPEN_MAX)
 		return (NULL);
-	line = ft_filline(res);
-	if (!line)
-		return (NULL);
-	res = ft_resetres(res);
+	if (ft_strchr_gnl(rest[fd], '\n') != NULL)
+	{
+		line = ft_add_gnl(line, rest[fd], ft_get_index_gnl(rest[fd], '\n') + 1);
+		ft_cut_gnl(rest[fd], rest[fd]);
+	}
+	else
+	{
+		if (*rest[fd] != '\0')
+			line = ft_add_gnl(line, rest[fd], BUFFER_SIZE);
+		line = readfile_gnl(fd, line, rest[fd]);
+	}
 	return (line);
 }

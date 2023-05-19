@@ -14,7 +14,7 @@
 # define LIBFT_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1
 # endif
 
 # include <stddef.h>
@@ -82,15 +82,23 @@ char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		**ft_split(char const *s, char c);
 char		*ft_itoa(int n);
 char		*ft_strjoin1(char *s1, char *s2);
-char		*ft_substrmod(char *s, unsigned int start, size_t len);
-char		*ft_strjoinmod(char *s1, char *s2);
-char		*ft_fillres(char *res, char *buffer);
-char		*ft_filline(char *res);
-char		*ft_resetres(char *res);
-char		*ft_read(int fd, char *res);
+//char		*ft_substrmod(char *s, unsigned int start, size_t len);
+//char		*ft_strjoinmod(char *s1, char *s2);
+//char		*ft_fillres(char *res, char *buffer);
+//char		*ft_filline(char *res);
+//char		*ft_resetres(char *res);
+//char		*ft_read(int fd, char *res);
 //char		*ft_read(int fd, char *buffer);
 //char		*ft_verif_line(char *buffer);
 //char		*ft_new_line(char *buffer);
+char		*ft_strnjoin_gnl(char const *s1, char const *s2, size_t n);
+size_t		ft_strlen_gnl(const char *s);
+char		*ft_strchr_gnl(const char *str, int charsearch);
+void		ft_bzero_gnl(void *s, size_t nb);
+size_t		ft_strlcpy_gnl(char *dest, const char *src, size_t size);
+ssize_t		ft_get_index_gnl(char *str, char searched_char);
+void		*ft_calloc_gnl(size_t count, size_t size);
+char		*readfile_gnl(int fd, char *line, char *rest);
 char		*get_next_line(int fd);
 char		*ft_unsigned_itoa(unsigned int i);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
