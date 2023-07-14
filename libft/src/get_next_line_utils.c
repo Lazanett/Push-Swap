@@ -5,89 +5,61 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/28 10:34:34 by lazanett          #+#    #+#             */
-/*   Updated: 2023/06/28 10:34:38 by lazanett         ###   ########.fr       */
+/*   Created: 2023/06/28 10:54:53 by lazanett          #+#    #+#             */
+/*   Updated: 2023/06/28 15:48:25 by lazanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-size_t	ft_strlen_gnl(const char *s)
+char	*ft_strjoin_gnl(char *line, char *buf)
 {
-	size_t	i;
+	char	*tab;
+	char	*new;
+	int		size;
+	int		i;
 
 	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strnjoin_gnl(char const *s1, char const *s2, size_t n)
-{
-	char	*str;
-	size_t	len1;
-	size_t	len2;
-
-	len1 = 0;
-	if (s1 != NULL)
-		len1 = ft_strlen_gnl(s1);
-	len2 = ft_strlen_gnl(s2);
-	if (len2 > n)
-		len2 = n;
-	str = malloc(sizeof(char) * (len1 + len2 + 1));
-	if (str == NULL)
+	size = (ft_strlen_gnl(line) + ft_strlen_gnl(buf));
+	tab = malloc (sizeof(char) * (size + 1));
+	new = tab;
+	if (!new)
 		return (NULL);
-	if (s1 != NULL)
-		ft_strlcpy_gnl(str, s1, len1 + 1);
-	ft_strlcpy_gnl(str + len1, s2, len2 + 1);
-	return (str);
-}
-
-char	*ft_strchr_gnl(const char *s, int c)
-{
-	char	*str;
-
-	str = (char *)s;
-	while (*str != (char)c)
+	while (line && line[i])
 	{
-		if (*str == '\0')
-			return (NULL);
-		str++;
-	}
-	return (str);
-}
-
-void	ft_bzero_gnl(void *s, size_t nb)
-{
-	char	*str;
-	size_t	i;
-
-	str = (char *)s;
-	i = 0;
-	while (i < nb)
-	{
-		str[i] = 0;
+		tab[i] = line[i];
 		i++;
 	}
+	while (*buf)
+	{
+		tab[i++] = *buf++;
+	}
+	tab[size] = '\0';
+	free (line);
+	return (new);
 }
 
-size_t	ft_strlcpy_gnl(char *dest, const char *src, size_t size)
+char	*ft_strchr_gnl(char *line, int c)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	if (!src)
-		return (0);
-	if (size > 0)
+	while (line[i] && (line[i] != (char)c))
 	{
-		while (src[i] && i < (size - 1))
-		{
-			dest[i] = src[i];
-			i++;
-		}
-		dest[i] = '\0';
+		i++;
 	}
-	while (src[i])
+	if (line[i] == (char)c)
+		return ((char *)line + i);
+	else
+		return (NULL);
+}
+
+int	ft_strlen_gnl(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i])
 		i++;
 	return (i);
 }

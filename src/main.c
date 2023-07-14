@@ -5,44 +5,69 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 11:50:50 by lazanett          #+#    #+#             */
-/*   Updated: 2023/05/10 13:46:21 by lazanett         ###   ########.fr       */
+/*   Created: 2023/05/16 13:36:50 by lazanett          #+#    #+#             */
+/*   Updated: 2023/07/14 16:46:34 by lazanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
-
-void	ft_push_swap(t_liste **lst1, t_liste **lst2, t_list_param *nb)
-{
-	if (nb->size == 2 && ft_already_class((*lst1)) == 0)
-		ft_sa((*lst1));
-	else if (nb->size == 3 && ft_already_class((*lst1)) == 0)
-		ft_sort_3(lst1);
-	else if ((nb->size > 3 && ft_already_class((*lst1)) == 0))
-		ft_sort(lst1, lst2, nb);
-}
+#include "../include/so_long.h"
 
 int	main(int ac, char **av)
 {
-	t_list_param	argument;
-	t_liste			*a;
-	t_liste			*b;
+	t_struc	elem;
 
-	a = NULL;
-	b = NULL;
-	argument.size = 0;
-	ft_check_args(ac, av, &argument);
-	while (argument.tab[argument.size])
+	if (check_argv(av[1], ".ber") == 0 && ac == 2)
 	{
-		ft_lstadd_back_p(&a, ft_lstnew_p(ft_atoi(argument.tab[argument.size])));
-		argument.size++;
+		ft_init_struc(&elem);
+		ft_init_tab(av[1], &elem);
+		if (ft_game_ok(&elem) == 0)
+		{
+			if (backtraking_ok(&elem) == 0)
+			{
+				elem.mini->mlx = mlx_init();
+				if (elem.mini->mlx == NULL)
+					return (1);
+				elem.mini->window = mlx_new_window(elem.mini->mlx, \
+						((elem.colonne - 1) * 48), (elem.ligne * 48), "Game");
+				tab_img(&elem);
+			}
+			mlx_hook(elem.mini->window, KeyPress, 1L<<0, ft_key , &elem);
+			mlx_hook(elem.mini->window, ClientMessage, 1L<<5, ft_mouse , &elem);
+			mlx_loop(elem.mini->mlx);
+		}
+		ft_free(elem.mini->mlx);
+		exit (0);
 	}
-	if (argument.split == 1)
-		ft_free(argument.tab);
 	else
-		free(argument.tab);
-	ft_push_swap(&a, &b, &argument);
-	free_lst(&a);
-	free_lst(&b);
+	{
+		ft_putendl_fd("Error : bad number of argument", 2);
+		exit(0);
+	}	
 	return (0);
+}
+
+int	check_argv(char *av, char *search)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(av);
+	if (len > 4)
+	{
+		len -= 4;
+		while ((av[len] || search[i]) && av[len] == search[i])
+		{
+			len++;
+			i++;
+		}
+	}
+	if (search[i] == '\0')
+		return (0);
+	else
+	{
+		ft_putendl_fd("Error : not .ber", 2);
+		exit(0);
+		return (1);
+	}
 }
