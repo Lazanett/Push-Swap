@@ -6,7 +6,7 @@
 /*   By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 10:51:25 by lazanett          #+#    #+#             */
-/*   Updated: 2023/06/28 18:55:00 by lazanett         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:55:26 by lazanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdarg.h>
-#include <errno.h>
 
 typedef struct s_list
 {
@@ -72,7 +71,6 @@ void		ft_bzero(void *s, size_t n);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memmove(void *dest, const void *src, size_t n);
 void		*ft_memchr(const void *s, int c, size_t n);
-void		ft_free(char **free_me);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 char		*ft_strchr(char *s, int c);
 char		*ft_strrchr(const char *s, int c);
@@ -84,13 +82,24 @@ char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		**ft_split(char const *s, char c);
 char		*ft_itoa(int n);
 char		*ft_strjoin1(char *s1, char *s2);
+//char		*ft_substrmod(char *s, unsigned int start, size_t len);
+//char		*ft_strjoinmod(char *s1, char *s2);
+//char		*ft_fillres(char *res, char *buffer);
+//char		*ft_filline(char *res);
+//char		*ft_resetres(char *res);
+//char		*ft_read(int fd, char *res);
+//char		*ft_read(int fd, char *buffer);
+//char		*ft_verif_line(char *buffer);
+//char		*ft_new_line(char *buffer);
+char		*ft_strnjoin_gnl(char const *s1, char const *s2, size_t n);
+size_t		ft_strlen_gnl(const char *s);
+char		*ft_strchr_gnl(const char *str, int charsearch);
+void		ft_bzero_gnl(void *s, size_t nb);
+size_t		ft_strlcpy_gnl(char *dest, const char *src, size_t size);
+ssize_t		ft_get_index_gnl(char *str, char searched_char);
+void		*ft_calloc_gnl(size_t count, size_t size);
+char		*readfile_gnl(int fd, char *line, char *rest);
 char		*get_next_line(int fd);
-char		*ft_read_line(int fd, char *line, char *buf);
-char		*ft_check_line(char *line);
-char		*ft_getlast_line(char *line, char *buf);
-char		*ft_strjoin_gnl(char *line, char *buf);
-char		*ft_strchr_gnl(char *line, int c);
-int			ft_strlen_gnl(char *str);
 char		*ft_unsigned_itoa(unsigned int i);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 void		ft_putchar_fd(char c, int fd);
@@ -98,7 +107,6 @@ void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 void		ft_strlcpymod(char *dst, char *src, size_t size);
-void		ft_perror(char *error);
 t_list		*ft_lstnew(void *content);
 void		ft_lstadd_front(t_list **lst, t_list *new);
 t_list		*ft_lstlast(t_list *lst);

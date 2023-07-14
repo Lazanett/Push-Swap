@@ -5,60 +5,92 @@
 #                                                     +:+ +:+         +:+      #
 #    By: lazanett <lazanett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/16 13:51:45 by lazanett          #+#    #+#              #
-#    Updated: 2023/07/14 15:09:21 by lazanett         ###   ########.fr        #
+#    Created: 2023/02/14 10:45:17 by lazanett          #+#    #+#              #
+#    Updated: 2023/05/15 13:16:45 by lazanett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=so_long
+NAME = push_swap
 
-CC=@cc
+NAME_BONUS = checker
 
-CFLAGS= -Wall -Wextra -Werror -g3
+cc = cc
 
-MFLAGS = -L -lft -lXext -lX11 -lm -lbsd
-
-SRC= 	src/main.c\
-		src/parsing_map.c\
-		src/side_map.c\
-		src/backtraking.c\
-		src/key.c\
-		src/init.c\
-		src/move.c\
-		src/image.c\
-		src/utils.c\
-
-PATH_MLX = minilibx
-
-LIBX = -L minilibx -lmlx_Linux
-LIBXFLAGS = -lmlx -lXext -lX11
+CFLAGS = -Wall -Werror -Wextra -g3
 
 PATH_LIB = libft
+
+SRC = src/parsing.c \
+		src/main.c \
+		src/ope.c \
+		src/ope2.c \
+		src/ope3.c \
+		src/ope4.c \
+		src/utils.c \
+		src/small_sort.c \
+		src/index.c \
+		src/utils_list.c \
+		src/utils_struc.c \
+		src/algo.c \
+		src/pos.c \
+		src/cost.c \
+		src/move.c \
+		src/free.c \
+
+SRC_BONUS = src/ope.c \
+			src/ope2.c \
+			src/ope3.c \
+			src/ope4.c \
+			src/utils.c \
+			src/small_sort.c \
+			src/index.c \
+			src/utils_list.c \
+			src/utils_struc.c \
+			src/algo.c \
+			src/pos.c \
+			src/cost.c \
+			src/move.c \
+			src/free.c \
+			src/parsing.c \
+			bonus/main_bonus.c \
+			bonus/operation1.c \
+			bonus/operation2.c \
+
+
 LIB = $(PATH_LIB)/libft.a
 
 OBJ = $(SRC:.c=.o)
 
-all:  $(NAME) $(NAME_BONUS)
+OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
-$(NAME) : $(OBJ)
-	@make -s -C $(PATH_MLX)
+all : $(LIB) $(NAME)
+
+bonus: $(LIB) $(NAME_BONUS)
+
+$(NAME) : $(OBJ) 
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
+	@echo "\n Compilation OK\n"
+
+$(NAME_BONUS) : $(OBJ_BONUS) 
+	@$(CC) $(CFLAGS) -o $(NAME_BONUS) $(OBJ_BONUS) $(LIB)
+	@echo "\n Compilation Bonus OK\n"
+
+.c.o :
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(LIB) :
 	@make -s -C $(PATH_LIB)
-	$(CC) $(CFLAGS) $(OBJ) $(LIB) $(LIBX) $(LIBXFLAGS) -o $(NAME) -g
-	@echo "\nCompilation OK\n"
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(PATH_MLX)
+clean :
+	@make -s -C $(PATH_LIB) clean
+	@ rm -f $(OBJ) 
+	@ rm -f $(OBJ_BONUS)
 
-clean:
-	make -C $(PATH_MLX) clean
-	make -C $(PATH_LIB) clean
-	rm -f $(OBJ)
+fclean : clean
+	@make -s -C $(PATH_LIB) fclean
+	@rm -f $(NAME)
+	@rm -f $(NAME_BONUS)
 
-fclean: clean
-	make -C $(PATH_LIB) fclean
-	make -C $(PATH_MLX) clean
-	rm -f $(NAME)
-
-re: fclean all
-
-.PHONY:	all clean fclean re
+re : fclean all
+	
+.PHONY : all clean fclean re
