@@ -26,5 +26,7 @@ Error handling and argument parsing in C.
 ------------------------------------------------------------------------------------------------------------
 
 👩‍💻 AUTHOR
+
 Developed with passion by Lazanett.
+
 If you have any questions or would like to collaborate, please don't hesitate to contact me!
